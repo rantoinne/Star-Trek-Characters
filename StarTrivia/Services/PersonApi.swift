@@ -26,6 +26,7 @@ class PersonApi {
             let jsonDecoder = JSONDecoder()
             do {
                 let person = try jsonDecoder.decode(Person.self, from: data)
+                print("Some Data \(person)")
                 completion(person)
             } catch {
                 debugPrint(error.localizedDescription)

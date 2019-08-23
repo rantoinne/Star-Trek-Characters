@@ -27,33 +27,32 @@ class SelectPersonVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("View Loaded")
     }
 
     @IBAction func randomClicked(_ sender: Any) {
         let randomNumber = Int.random(in: 1 ... 87)
         personApi.getRandomPersonAlamo(id: randomNumber) { (person) in
             if let person = person {
-                self.nameLbl.text = person.name
-                self.heightLbl.text = person.height
-                self.massLbl.text = person.mass
-                self.birthYearLbl.text = person.birthYear
-                self.genderLbl.text = person.gender
-                self.hairLbl.text = person.hair
+                self.setupView(person: person)
+                print("View Loaded \(person)")
             }
         }
     }
     
-    
-    @IBAction func homeworldClicked(_ sender: Any) {
-    }
-    
-    @IBAction func vehiclesClicked(_ sender: Any) {
-    }
-    
-    @IBAction func starshipsClicked(_ sender: Any) {
-    }
-    
-    @IBAction func filmsClicked(_ sender: Any) {
+    func setupView(person: Person) {
+        nameLbl.text = person.name
+        heightLbl.text = person.height
+        massLbl.text = person.mass
+        birthYearLbl.text = person.birthYear
+        genderLbl.text = person.gender
+        hairLbl.text = person.hair
+        
+        homeworldBtn.isEnabled = !person.homeWorldUrl.isEmpty
+        starshipsBtn.isEnabled = !person.starshipUrls.isEmpty
+        filmsBtn.isEnabled = !person.filmUrls.isEmpty
+        vehiclesBtn.isEnabled = !person.vehicleUrls.isEmpty
+        
     }
     
 }
