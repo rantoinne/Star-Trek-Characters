@@ -15,6 +15,7 @@ class StarshipsVC: UIViewController, PersonProtocol {
     @IBOutlet weak var costLbl: UILabel!
     @IBOutlet weak var makerLbl: UILabel!
     
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var prevBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
@@ -34,6 +35,7 @@ class StarshipsVC: UIViewController, PersonProtocol {
     }
     
     func getStarships(url: String) {
+        loader.startAnimating()
         api.getStarship(url: url) { (starship) in
             if let starship = starship {
                 self.setupUI(starship: starship)
@@ -42,6 +44,7 @@ class StarshipsVC: UIViewController, PersonProtocol {
     }
     
     func setupUI(starship: Starship) {
+        loader.stopAnimating()
         nameLbl.text = starship.name
         costLbl.text = starship.cost
         makerLbl.text = starship.manufacturer

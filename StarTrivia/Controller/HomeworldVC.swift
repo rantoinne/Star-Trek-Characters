@@ -12,6 +12,7 @@ class HomeworldVC: UIViewController, PersonProtocol {
     var person: Person!
     let api = HomeworldApi()
     
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
     @IBOutlet weak var climateLbl: UILabel!
     @IBOutlet weak var populationLbl: UILabel!
@@ -20,8 +21,10 @@ class HomeworldVC: UIViewController, PersonProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loader.startAnimating()
         api.getHomeworld(url: person.homeWorldUrl) { (homeworld) in
             if let homeworld = homeworld {
+                self.loader.stopAnimating()
                 self.setupUI(homeworld: homeworld)
             }
         }

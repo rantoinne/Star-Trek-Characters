@@ -24,6 +24,7 @@ class VehiclesVC: UIViewController, PersonProtocol {
     @IBOutlet weak var passengersLbl: UILabel!
     @IBOutlet weak var speedLbl: UILabel!
     
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var prevBtn: UIButton!
     
@@ -37,6 +38,7 @@ class VehiclesVC: UIViewController, PersonProtocol {
     }
     
     func getVehicle(url: String) {
+        loader.startAnimating()
         api.getVehicle(url: url) { (vehicle) in
             if let vehicle = vehicle {
                 self.setupUI(vehicle: vehicle)
@@ -45,6 +47,7 @@ class VehiclesVC: UIViewController, PersonProtocol {
     }
     
     func setupUI(vehicle: Vehicle) {
+        loader.stopAnimating()
         nameLbl.text = vehicle.name
         manufacturerLbl.text = vehicle.manufacturer
         modelLbl.text = vehicle.model

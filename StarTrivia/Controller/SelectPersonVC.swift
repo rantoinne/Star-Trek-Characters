@@ -21,19 +21,30 @@ class SelectPersonVC: UIViewController {
     @IBOutlet weak var vehiclesBtn: UIButton!
     @IBOutlet weak var starshipsBtn: UIButton!
     @IBOutlet weak var filmsBtn: UIButton!
-
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+    
     var personApi = PersonApi()
     var person: Person!
     
     override func viewDidLoad() {
+        loader.startAnimating()
         super.viewDidLoad()
-        print("View Loaded")
+        personApi.getRandomPersonAlamo(id: 1) { (person) in
+            if let person = person {
+                self.loader.stopAnimating()
+                self.setupView(person: person)
+                print("View Loaded \(person)")
+                self.person = person
+            }
+        }
     }
 
     @IBAction func randomClicked(_ sender: Any) {
+        loader.startAnimating()
         let randomNumber = Int.random(in: 1 ... 87)
         personApi.getRandomPersonAlamo(id: randomNumber) { (person) in
             if let person = person {
+                self.loader.stopAnimating()
                 self.setupView(person: person)
                 print("View Loaded \(person)")
                 self.person = person
