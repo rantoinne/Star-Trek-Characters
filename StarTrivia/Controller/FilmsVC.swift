@@ -7,12 +7,13 @@
 
 import UIKit
 
-class FilmsVC: UIViewController {
+class FilmsVC: UIViewController, PersonProtocol {
 
+    var person: Person!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        print("\(person.name)")
     }
 
 }
